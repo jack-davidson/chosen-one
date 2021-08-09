@@ -2,7 +2,7 @@ package choose_test
 
 import (
 	"github.com/google/go-cmp/cmp"
-	"github.com/jack-davidson/choosen-one/choose"
+	"github.com/jack-davidson/chosen-one/choose"
 	"testing"
 )
 
