@@ -1,4 +1,4 @@
-module github.com/jack-davidson/chosenone
+module github.com/jack-davidson/chosen-one
 
 go 1.16
 
