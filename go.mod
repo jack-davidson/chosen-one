@@ -1,4 +1,4 @@
-module github.com/jack-davidson/choosepresenter
+module github.com/jack-davidson/chosenone
 
 go 1.16
 

@@ -1,4 +1,4 @@
-package choosepresenter_test
+package chosenone_test
 
 import (
 	"github.com/google/go-cmp/cmp"
