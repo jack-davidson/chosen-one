@@ -1,6 +1,7 @@
 package choosepresenter_test
 
 import (
+	"fmt"
 	"github.com/google/go-cmp/cmp"
 	"github.com/jack-davidson/choosepresenter"
 	"testing"
@@ -14,7 +15,7 @@ func (r FakeRand) Float64() float64 {
 	return r.Float64Func()
 }
 
-func TestChoosePresenter(t *testing.T) {
+func TestCalculateScores(t *testing.T) {
 	got := choosepresenter.CalculateScores(
 		FakeRand{Float64Func: func() float64 { return 0.2 }},
 		[]choosepresenter.Participant{
@@ -32,4 +33,13 @@ func TestChoosePresenter(t *testing.T) {
 	if !cmp.Equal(want, got) {
 		t.Errorf(cmp.Diff(got, want))
 	}
+}
+
+func TestWinner(t *testing.T) {
+	participants := []choosepresenter.Participant{
+		{"Jack", 1, 5.2},
+		{"John", 0, 10.9},
+		{"Isaac", 0, 10.2},
+	}
+	fmt.Println(choosepresenter.Winner(participants))
 }

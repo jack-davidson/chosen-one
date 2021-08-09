@@ -20,3 +20,13 @@ func CalculateScores(randomer Randomer,
 	}
 	return participants
 }
+
+func Winner(participants []Participant) Participant {
+	var chosenParticipant Participant
+	for _, participant := range participants {
+		if participant.Score > chosenParticipant.Score {
+			chosenParticipant = participant
+		}
+	}
+	return chosenParticipant
+}
