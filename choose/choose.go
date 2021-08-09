@@ -1,7 +1,5 @@
 package choose
 
-import ()
-
 type Randomer interface {
 	Float64() float64
 }
@@ -26,6 +24,7 @@ func CalculateScores(randomer Randomer,
 }
 
 // Select the winner (largest score) from slice of (Participant)s.
+// greatest score -> winner
 func Winner(participants []Participant) Participant {
 	var chosenParticipant Participant
 	for _, participant := range participants {

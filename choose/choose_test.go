@@ -1,9 +1,10 @@
 package choose_test
 
 import (
+	"testing"
+
 	"github.com/google/go-cmp/cmp"
 	"github.com/jack-davidson/chosen-one/choose"
-	"testing"
 )
 
 type FakeRand struct {
