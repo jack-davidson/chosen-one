@@ -15,23 +15,21 @@ func (r FakeRand) Float64() float64 {
 }
 
 func TestChoosePresenter(t *testing.T) {
-	participants := []choosepresenter.Participant{
-		{"Jack", 0, 0},
-		{"John", 0, 0},
-		{"Isaac", 0, 0},
-	}
-	randomer := FakeRand{
-		Float64Func: func() float64 {
-			return 0.2
-		},
-	}
-	got := choosepresenter.ChoosePresenter(randomer, participants)
+	got := choosepresenter.CalculateScores(
+		FakeRand{Float64Func: func() float64 { return 0.2 }},
+		[]choosepresenter.Participant{
+			{"Jack", 1, 0},
+			{"John", 0, 0},
+			{"Isaac", 0, 0},
+		})
+
 	want := []choosepresenter.Participant{
-		{"Jack", 0, 0.2},
-		{"John", 0, 0.2},
-		{"Isaac", 0, 0.2},
+		{"Jack", 1, 5.2},
+		{"John", 0, 10.2},
+		{"Isaac", 0, 10.2},
 	}
-	if cmp.Equal(want, got) {
+
+	if !cmp.Equal(want, got) {
 		t.Errorf(cmp.Diff(got, want))
 	}
 }
