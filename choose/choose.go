@@ -12,6 +12,10 @@ type Participant struct {
 	Score             float64
 }
 
+// Calculate random score.
+// The score is calculated by taking a random number and adding it
+// to ten over the previous presentation count plus one:
+//	score = random() + (10/presentation_count+1)
 func CalculateScores(randomer Randomer,
 	participants []Participant) []Participant {
 	for i := range participants {
@@ -21,6 +25,7 @@ func CalculateScores(randomer Randomer,
 	return participants
 }
 
+// Select the winner (largest score) from slice of (Participant)s.
 func Winner(participants []Participant) Participant {
 	var chosenParticipant Participant
 	for _, participant := range participants {
