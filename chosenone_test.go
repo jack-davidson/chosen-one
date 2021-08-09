@@ -2,7 +2,7 @@ package chosenone_test
 
 import (
 	"github.com/google/go-cmp/cmp"
-	"github.com/jack-davidson/choosepresenter"
+	"github.com/jack-davidson/chosenone"
 	"testing"
 )
 
@@ -15,15 +15,15 @@ func (r FakeRand) Float64() float64 {
 }
 
 func TestCalculateScores(t *testing.T) {
-	got := choosepresenter.CalculateScores(
+	got := chosenone.CalculateScores(
 		FakeRand{Float64Func: func() float64 { return 0.2 }},
-		[]choosepresenter.Participant{
+		[]chosenone.Participant{
 			{"Jack", 1, 0},
 			{"John", 0, 0},
 			{"Isaac", 0, 0},
 		})
 
-	want := []choosepresenter.Participant{
+	want := []chosenone.Participant{
 		{"Jack", 1, 5.2},
 		{"John", 0, 10.2},
 		{"Isaac", 0, 10.2},
@@ -35,8 +35,8 @@ func TestCalculateScores(t *testing.T) {
 }
 
 func TestWinner(t *testing.T) {
-	want := choosepresenter.Participant{"John", 0, 10.9}
-	got := choosepresenter.Winner([]choosepresenter.Participant{
+	want := chosenone.Participant{"John", 0, 10.9}
+	got := chosenone.Winner([]chosenone.Participant{
 		{"Jack", 1, 5.2},
 		{"Isaac", 0, 10.2},
 		{"John", 0, 10.9},
