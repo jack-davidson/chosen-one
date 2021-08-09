@@ -1,7 +1,6 @@
 package choosepresenter_test
 
 import (
-	"fmt"
 	"github.com/google/go-cmp/cmp"
 	"github.com/jack-davidson/choosepresenter"
 	"testing"
@@ -36,10 +35,13 @@ func TestCalculateScores(t *testing.T) {
 }
 
 func TestWinner(t *testing.T) {
-	participants := []choosepresenter.Participant{
+	want := choosepresenter.Participant{"John", 0, 10.9}
+	got := choosepresenter.Winner([]choosepresenter.Participant{
 		{"Jack", 1, 5.2},
-		{"John", 0, 10.9},
 		{"Isaac", 0, 10.2},
+		{"John", 0, 10.9},
+	})
+	if !cmp.Equal(want, got) {
+		t.Errorf(cmp.Diff(got, want))
 	}
-	fmt.Println(choosepresenter.Winner(participants))
 }
