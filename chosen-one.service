@@ -1,0 +1,11 @@
+[Unit]
+Description=Podium Education presenter selector
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/admin/repos/Podium-Education/chosen-one/server
+ExecStart=/home/admin/repos/Podium-Education/chosen-one/server/server
+
+[Install]
+WantedBy=default.target
