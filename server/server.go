@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -12,20 +14,32 @@ import (
 
 const Host = "localhost"
 const Port = 8000
+const ParticipantDataFileName = "participantdata.json"
 
 func choosePerson(w http.ResponseWriter, r *http.Request) {
 	text := r.FormValue("text")
-	names := strings.FieldsFunc(text, func(r rune) bool {
-		return r == ' '
-	})
+	names := strings.Fields(text)
+	file, err := os.ReadFile(ParticipantDataFileName)
+	if err != nil {
+		fmt.Println(err)
+	}
+	participantData := make(map[string]interface{})
+	json.Unmarshal(file, &participantData)
 	participants := make([]choose.Participant, len(names))
 	for i, name := range names {
+		if participantData[name] != nil {
+			participants[i].PresentationCount = int(participantData[name].(float64))
+		}
 		participants[i].Name = name
 	}
+
 	winner := choose.Winner(choose.CalculateScores(rand.New(rand.NewSource(time.Now().UnixNano())), participants))
-	fmt.Println(winner)
-	fmt.Println(text)
-	fmt.Println(names)
+	participantData[winner.Name] = winner.PresentationCount + 1
+	file, err = json.Marshal(participantData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	os.WriteFile(ParticipantDataFileName, file, 0644)
 }
 
 func main() {
